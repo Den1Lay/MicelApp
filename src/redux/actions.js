@@ -1,11 +1,12 @@
 import axios from 'axios'
 
 const getData = dispatch => token => {
-  let data = {
-    
-  }
+  
+  let data = {}
+  let inAir = []
   const checker = path => {
-    console.log(path)
+    inAir.push('check')
+    //console.log(path)
     axios
       .get( path, {
         headers: {
@@ -15,17 +16,17 @@ const getData = dispatch => token => {
       })
       .then(res => {
         let mainData = res.data['_embedded']['items']
-        console.log(mainData)
+        //console.log(mainData)
         mainData.forEach(obj => {
           if(obj['type'] === 'file') {
             let fold = obj['path'].split('/')
             let pathToBottom = fold.slice(0, fold.length - 1)
-            let name = obj.name.substring(0, obj.name.indexOf('.') - 1)
+            //console.log('PATH',pathToBottom)  
+            let name = obj.name.substring(0, obj.name.indexOf('.'))
             let mut = data //мутирующий клон
-            let i = 0
             while(pathToBottom.length > 1) {
-              i++
-              mut = mut[pathToBottom[i]] = {...mut[pathToBottom[i]]}
+              mut = mut[pathToBottom[0]] = {...mut[pathToBottom[0]]}
+              pathToBottom.shift()
             }
             mut[pathToBottom[0]] = {...mut[pathToBottom[0]], [name]: obj}
             
@@ -34,13 +35,18 @@ const getData = dispatch => token => {
             let lastDls = dls[dls.length - 1]
             checker(`${path}${lastDls}%2F`)
           }
-          console.log(data)
+          console.log("RES",data)
+        })
+        inAir.shift()
+        //console.log('INAIR',inAir)
+        if(inAir.length === 0) dispatch({
+          type: 'ADD_DATA',
+          data
         })
       })
-      .catch(err => console.log('Error: ' + err))
+      .catch(err => console.log('Service Error: ' + err))
   }
   checker('https://cloud-api.yandex.net:443/v1/disk/resources?path=disk%3A%2F')
-  
 }
 
 const addData = data => {
