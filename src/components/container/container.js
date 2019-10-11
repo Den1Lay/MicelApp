@@ -1,14 +1,27 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
-const Container = props => {
-  
+const Container = ({data, loc}) => {
+  console.log(data)
+  console.log('loc', loc.pathname)
+  const getItems = () => {
+    let resData = []
+    let metaData = data
+    for (let prop in metaData) {
+      if(metaData[prop].type === undefined) {
+        resData.push(<div key={prop}><Link to={`${loc.pathname}${prop}/`}>Folder: {prop}</Link></div>) // data = {metaData[prop]}
+      } else {
+        resData.push(<div key={prop}>File: {prop}</div>)
+      }
+    }
+    return resData
+  }
+  console.log(getItems())
   return(
     <div>
-      <p>I am here</p>
-      <p>{props.data}</p>
+      {getItems()}
     </div>
   )
 }
 
-export default connect()(Container)
+export default Container

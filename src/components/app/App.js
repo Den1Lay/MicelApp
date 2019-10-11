@@ -52,12 +52,12 @@ class App extends Component {
     return (
       <div className="App">
         <Link to='/disk/Загрузки/'>REDIR</Link>
+        <Link to='/disk/'>HOME</Link>
         <img src={'https://downloader.disk.yandex.ru/preview/bdb74aaa608fc593d39c9bf8745fd0f0d25178472657b028f55795ac5055efbe/inf/PNec8rFbFd0WPJMSAfUc7pNiNSME7Q0O0DrXr5-IhMgAOITNajybxvIo7yfrDcZbCvINiUpbWSnJA594N-sTjQ%3D%3D?uid=590420557&filename=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=590420557&tknv=v2&size=S&crop=0'} />
         <Header />
-        <p>Wellcome</p>
         <Route path='/home' render={() => <Container data={'Free data'}/>} />
-        {this.getRoutes().map(({path, data}) => <Route exact path={path} render={() => <Container data={'INVALS'} />} />)}
-        {[1, 2, 3, 4].map(el => <Route path={`/${el}`} render={() => <h2>{el}</h2>}/>)}
+        {this.getRoutes().map(({path, data}, i) => <Route key={path} exact path={path} render={({match, location, history}) => <Container data={data} loc={location} />} />)}
+        {/* {[1, 2, 3, 4].map(el => <Route path={`/${el}`} render={() => <h2>{el}</h2>}/>)} */}
       </div>
     );
   }
