@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const getData = dispatch => token => {
-  
   let data = {}
   let inAir = []
   const checker = path => {
