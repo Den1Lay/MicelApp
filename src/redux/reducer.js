@@ -1,7 +1,7 @@
 const initalState = {
   data: {},
   token: null,
-  path: ['disk:', 'TestFolder', 'InsaFold', 'AndAnotherFold']
+  folders: []
 }
 
 const reducer = (state = initalState, action) => {
@@ -9,7 +9,8 @@ const reducer = (state = initalState, action) => {
     case 'ADD_DATA':
       return {
         ...state,
-        data: action.data
+        data: action.data,
+        folders: action.folders
       }
     default:
       return state

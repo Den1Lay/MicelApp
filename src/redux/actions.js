@@ -3,6 +3,7 @@ import axios from 'axios'
 const getData = dispatch => token => {
   let data = {}
   let inAir = []
+  let folders = []
   const checker = path => {
     inAir.push('check')
     //console.log(path)
@@ -28,8 +29,9 @@ const getData = dispatch => token => {
               pathToBottom.shift()
             }
             mut[pathToBottom[0]] = {...mut[pathToBottom[0]], [name]: obj}
-            
+
           } else if(obj['type'] === 'dir') {
+            folders.push(obj.name)
             let dls = obj.path.split('/')
             let lastDls = dls[dls.length - 1]
             checker(`${path}${lastDls}%2F`)
@@ -38,10 +40,15 @@ const getData = dispatch => token => {
         })
         inAir.shift()
         //console.log('INAIR',inAir)
-        if(inAir.length === 0) dispatch({
-          type: 'ADD_DATA',
-          data
-        })
+        if(inAir.length === 0)  {
+          
+          console.log('FOLDERS',folders)
+          dispatch({
+            type: 'ADD_DATA',
+            data,
+            folders
+          })
+        }
       })
       .catch(err => console.log('Service Error: ' + err))
   }
