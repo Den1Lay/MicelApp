@@ -25,7 +25,6 @@ class App extends Component {
       for(let prop in data) {
         if(data[prop].type === undefined) {
           let newPath = `${relPath}/${prop}`.replace(/:/g, '')
-          console.log(newPath)
           routes.push({path: `${newPath}`, data: data[prop]})
           getter(data[prop], newPath)
         }
@@ -44,9 +43,7 @@ class App extends Component {
           {this.getRoutes().map(({path, data}, i) => <Route key={path} exact path={path} render={({match, location, history}) => <Container data={data} loc={location} />} />)}
           {this.getRoutes().map(({path, data}, i) => <Route key={path} exact path={`${path}/:id`} render={({match, location, history}) => {
             let {id} = match.params
-            console.log('THAT DATA',data)
             let pass = data[id.slice(0, id.indexOf('.'))]
-            console.log('PASSS', pass)
             if(this.props.folders.indexOf(id) === -1) return <Picture pass={pass}/>
           }} />)}
       </div>
