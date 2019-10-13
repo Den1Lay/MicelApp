@@ -1,24 +1,29 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import Label from '../label'
+
+import folderLogo from '../../image/LittleFolder.png'
+import fileLogo from '../../image/PngFile.png'
+import pictureLogo from '../../image/Picture.png'
+import './container.css'
 
 const Container = ({data, loc}) => {
-  console.log(data)
-  console.log('loc', loc.pathname)
   const getItems = () => {
     let resData = []
     let metaData = data
-    for (let prop in metaData) {
+    for (let prop in metaData) {  
       if(metaData[prop].type === undefined) {
-        resData.push(<div key={prop}><Link to={`${loc.pathname}/${prop}`}>Folder: {prop}</Link></div>) // data = {metaData[prop]}
+        resData.push(<Label key={prop} url={`${loc.pathname}/${prop}`} name={prop} src={folderLogo}/>)
+      } else if (metaData[prop].media_type === 'image') {
+        console.log('PIC',metaData[prop])                                  // к сожалению metaData[prop].preview выдает 403
+        resData.push(<Label key={prop} url={`${loc.pathname}/${metaData[prop].name}`} name={metaData[prop].name} src={pictureLogo}/>)
       } else {
-        resData.push(<div key={prop}>File: {prop}</div>)
+        resData.push(<Label key={prop} name={metaData[prop].name} src={fileLogo}/>)
       }
     }
     return resData
   }
-  console.log(getItems())
   return(
-    <div>
+    <div className='container'>
       {getItems()}
     </div>
   )

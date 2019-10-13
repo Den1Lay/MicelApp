@@ -1,7 +1,9 @@
 const initalState = {
   data: {},
   token: null,
-  folders: []
+  folders: [],
+  loading: false,
+  error: false
 }
 
 const reducer = (state = initalState, action) => {
@@ -10,7 +12,19 @@ const reducer = (state = initalState, action) => {
       return {
         ...state,
         data: action.data,
-        folders: action.folders
+        folders: action.folders,
+        loading: false,
+        token: action.token
+      }
+    case 'LOAD_DATA':
+      return {
+        ...state,
+        loading: true
+      }
+    case 'ERROR_LOAD_DATA':
+      return {
+        ...state,
+        error: action.error,
       }
     default:
       return state

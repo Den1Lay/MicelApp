@@ -1,10 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
-const Header = (props) => {
+import './header.css'
+
+const Dls = ({token}) => {
+  return(
+    <>
+      <Link to='/disk' className='btn btn-primary redir'>/disk</Link>
+      <div><span className='token-label'>Current token:</span>{token}</div>
+    </>
+  )
+}
+
+const Header = ({token}) => {
   return(
     <div className='header'>
-      <h2>Yandex RESTful API</h2>
+      <Link to='/'><h2 className='main-title'><span className='red'>Y</span>andex RESTful API</h2></Link>
+      {token !== null ? <Dls token={token}/> : null}
     </div>
   )
 }

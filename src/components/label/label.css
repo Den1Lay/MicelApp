@@ -1,0 +1,18 @@
+img {
+  max-width: 100%;
+  min-width: 150px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 0 0 150px;
+  margin: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+a{
+  flex: 0 0 150px;
+}
