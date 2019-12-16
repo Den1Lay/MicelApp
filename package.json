@@ -12,7 +12,7 @@
     "react-scripts": "3.2.0",
     "redux": "^4.0.4"
   },
-  "homepage":"https://den1lay.github.io/MicelApp",
+  "homepage":"https://den1lay.github.io/MicelApp/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
